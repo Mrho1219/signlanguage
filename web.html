@@ -1,0 +1,90 @@
+<!--videosender.html-->
+<!DOCTYPE html>
+<html>
+<head>
+	<title>수화 번역 프로그램</title>
+</head>
+
+<div style="float: left; width: 19%;">
+  <!-- 첫번째 영역 -->
+  <link rel="stylesheet" href="style.css">
+  <center>
+    <h1>수어 알아보기</h1>
+    <a style="line-height: 300%" href="https://sldict.korean.go.kr/front/main/main.do" text-decoration-line: none;>국립국어원 한국수어사전 바로가기</a><br>
+    <a style="line-height: 300%" href="https://sldict.korean.go.kr/front/sign/signList.do?top_category=CTE" text-decoration-line: none;>일상생활 수어 알아보기</a><br>
+    <a style="line-height: 300%" href="https://sldict.korean.go.kr/front/sign/signList.do?top_category=CTE" text-decoration-line: none;>전문용어 수어 알아보기</a><br>
+    <a style="line-height: 300%" href="https://sldict.korean.go.kr/front/museum/museumList.do?top_category=MUE" text-decoration-line: none;>문화정보 수어 알아보기</a><br>
+    <a style="line-height: 300%" href="https://sldict.korean.go.kr/front/sign/signViewMoreList.do" text-decoration-line: none;>많이 본 수어 알아보기</a><br>
+  </center>
+  
+
+</div>
+<div style="float: left; width: 50%;">
+<body>
+  <center>
+  <h1>수화 번역 프로그램</h1>
+  <p style="line-height: 300%">버튼을 클릭하여 시작해주세요</p>
+  </body>
+	<video  id="videoInput" style="display:none"></video>
+  <canvas id="videoOutput"></canvas>
+  <button onclick=stream()>시작</button>
+  <p style="line-height: 300%">시작 버튼을 누른 뒤 수화를 하면 옆에 텍스트로 단어가 나옵니다. </p>
+  </center>
+</body>
+</div>
+<div style="float: left; width: 30%;">
+  <center>
+  <h1>아마도 수화 해석이 나올 부분</h1>
+</center>
+</div>
+<script>
+  var w = 480, h = 360;
+	var url = "ws://localhost:3000"
+	var ws = new WebSocket(url);
+	ws.onopen = function(){
+		console.log("Websocket is connected.");
+	}
+	ws.onmessage = function(msg){
+		console.log(msg.data);
+	}
+
+	navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+  var constraints = {audio: false, video: true};
+  var video = document.getElementById("videoInput");
+  video.width = w;
+  video.height = h;
+  function successCallback(stream){
+  	video.srcObject = stream;
+  	video.play();
+  }
+  
+  function errorCallback(error){
+   	console.log(error);
+  }
+  navigator.getUserMedia(constraints, successCallback, errorCallback);
+	var canvas = document.getElementById("videoOutput");
+  canvas.width = w;
+  canvas.height = h;
+  var ctx = canvas.getContext("2d");
+  function processImage(){
+        ctx.save();
+        ctx.scale(-1, 1);
+        ctx.translate(-480, 0);
+        ctx.drawImage(video, 0, 0, w, h);
+        ctx.restore();
+        setTimeout(processImage, 1);
+  }
+  processImage();
+
+  function stream(){
+    setInterval(sendImage, 70);  //딜레이
+  }
+
+  function sendImage(){
+    var rawData = canvas.toDataURL("image/jpeg", 0.3); //해상도
+    ws.send(rawData);
+  }
+
+ 
+</script>
+</html>
