@@ -23,11 +23,11 @@
 <body>
   <center>
   <h1>수화 번역 프로그램</h1>
-  <p style="line-height: 300%">버튼을 클릭하여 시작해주세요</p>
+  <div><p id = "start"style="line-height: 300%">시작버튼을 클릭하하여 실행시켜 주세요</p></div>
   </body>
 	<video  id="videoInput" style="display:none"></video>
   <canvas id="videoOutput"></canvas>
-  <button onclick=stream()>시작</button>
+  <button id='btn' onclick='changeBtnName();ChangeText()'> 시작 </button>
   <p style="line-height: 300%">시작 버튼을 누른 뒤 수화를 하면 옆에 텍스트로 단어가 나옵니다. </p>
   </center>
 </body>
@@ -39,7 +39,7 @@
 </div>
 <script>
   var w = 480, h = 360;
-	var url = "ws://localhost:3000"
+	var url = "ws://100.100.80.4:3000"
 	var ws = new WebSocket(url);
 	ws.onopen = function(){
 		console.log("Websocket is connected.");
@@ -77,14 +77,22 @@
   processImage();
 
   function stream(){
-    setInterval(sendImage, 70);  //딜레이
+    setInterval(sendImage, 30); // 딜레이관런
   }
 
   function sendImage(){
-    var rawData = canvas.toDataURL("image/jpeg", 0.3); //해상도
+    var rawData = canvas.toDataURL("image/jpeg", 0.5); //해상도
     ws.send(rawData);
   }
 
+  function ChangeText()
+        {
+            document.getElementById("start").innerHTML = "실행중입니다.";
+        }
+  function changeBtnName()  {
+  const btnElement = document.getElementById('btn');
+  btnElement.innerText = '실행중';
+}
  
 </script>
 </html>
