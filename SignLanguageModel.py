@@ -5,6 +5,7 @@ from matplotlib import pyplot as plt
 from tensorflow import keras
 from scipy import stats
 
+
 class SignLanguage():
     def __init__(self):
         self.mp_holistic = mp.solutions.holistic # Holistic model
