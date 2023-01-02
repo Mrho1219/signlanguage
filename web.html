@@ -1,41 +1,72 @@
 <!--videosender.html-->
 <!DOCTYPE html>
 <html>
+
 <head>
 	<title>수화 번역 프로그램</title>
 </head>
 
 <link rel="stylesheet" href="style.css">
-<div class='center' style="float: left; width: 15%;">
+
+<div class='center' style="float: left; width: 20%;">
   <!-- 첫번째 영역 -->
-  <img src="signimg.png" alt="My Image">
-    <h1 style="line-height: 400%">수어 알아보기</h1>
-    <a style="line-height: 350%" href="https://sldict.korean.go.kr/front/main/main.do"  target="_blank" text-decoration-line: none;>국립국어원 한국수어사전 바로가기</a><br>
-    <a style="line-height: 350%" href="https://sldict.korean.go.kr/front/sign/signList.do?top_category=CTE" target="_blank" text-decoration-line: none;>일상생활 수어 알아보기</a><br>
-    <a style="line-height: 350%" href="https://sldict.korean.go.kr/front/sign/signList.do?top_category=CTE" target="_blank"  text-decoration-line: none;>전문용어 수어 알아보기</a><br>
-    <a style="line-height: 350%" href="https://sldict.korean.go.kr/front/museum/museumList.do?top_category=MUE"  target="_blank" text-decoration-line: none;>문화정보 수어 알아보기</a><br>
+  <img  src="C:\Users\hgsam\OneDrive\바탕 화면\su\ing\signimg.png" style=" display:block;">
+
+    <h1 style="line-height: 300%">수어 알아보기</h1>
+    <a style="line-height: 280%" href="https://sldict.korean.go.kr/front/main/main.do"  target="_blank" text-decoration-line: none;>국립국어원 한국수어사전 바로가기</a><br>
+    <a style="line-height: 280%" href="https://sldict.korean.go.kr/front/sign/signList.do?top_category=CTE" target="_blank" text-decoration-line: none;>일상생활 수어 알아보기</a><br>
+    <a style="line-height: 280%" href="https://sldict.korean.go.kr/front/sign/signList.do?top_category=CTE" target="_blank"  text-decoration-line: none;>전문용어 수어 알아보기</a><br>
+    <a style="line-height: 280%" href="https://sldict.korean.go.kr/front/museum/museumList.do?top_category=MUE"  target="_blank" text-decoration-line: none;>문화정보 수어 알아보기</a><br>
   
+    <body>
+      <h1 style="line-height: 300%">학습되어있는 단어</h1>
+    <select  name="" id="changeImg"style="width:300px;height:30px;">
+      <option value="ing\생쥐.png">생쥐</option>
+      <option value="ing\길.png">길</option>
+      <option value="ing\돈.png">돈</option>
+      <option value="ing\날다.png">날다</option>
+      <option value="ing\비자.png">비자</option>
+      <option value="ing\대표.png">대표</option>
+  </select>
+</form>
+<img id="myImg" src="ing/signimg.png" alt="옵션 그림">
+    </body>
 </div>
-<div  class='center' style="float: left; width: 84%;">
+
+<div  class='center' style="float: left; width: 79%;">
   <!-- 두번째 영역 -->
-<h1 >수화 번역 프로그램</h1>
 <div style="float: left; width: 75%;">
 <body>
-
-  <div><p id="start" style="line-height: 300%">시작버튼을 클릭하하여 실행시켜 주세요</p></div>
+  <h1 style="line-height: 300%" >수화 번역 프로그램</h1>
+  <div><p id = "start" style="line-height: 400%">시작버튼을 클릭하하여 실행시켜 주세요</p></div>
   </body>
 	<video  id="videoInput" style="display:none"></video>
   <canvas id="videoOutput"></canvas>
   <button id='btn' onclick='changeBtnName();ChangeText();stream()'> 시작 </button>
-  <p style="line-height: 300%">시작 버튼을 누른 뒤 수화를 하면 옆에 텍스트로 단어가 나옵니다. </p>
+  <p style="line-height: 400%">시작 버튼을 누른 뒤 수화를 하면 옆에 텍스트로 단어가 나옵니다. </p>
 </body>
 </div>
-<div style="float: left; width: 24%;">
 
-  <h1>아마도 수화 해석이 나올 부분</h1>
+<div style="float: left; width: 24%;">
+  <h2 style="line-height: 600%">수화 해석이 나올 부분</h1>
 </div>
 </div>
+
+
+
+
 <script>
+   let changeimg = document.getElementById("changeImg");
+        let myImg = document.getElementById("myImg");
+
+        function changeImage(){
+            let index = changeimg.selectedIndex;
+            myImg.src = changeimg.options[index].value;
+        }
+        
+        changeImage();
+        changeimg.onchange = changeImage;
+        
   var w = 480, h = 360;
 	var url = "ws://localhost:3000"
 	var ws = new WebSocket(url);
@@ -59,6 +90,7 @@
   function errorCallback(error){
    	console.log(error);
   }
+
   navigator.getUserMedia(constraints, successCallback, errorCallback);
 	var canvas = document.getElementById("videoOutput");
   canvas.width = w;
@@ -72,6 +104,7 @@
         ctx.restore();
         setTimeout(processImage, 1);
   }
+
   processImage();
 
   function stream(){
