@@ -80,7 +80,7 @@ DATA_PATH = os.path.join('MP_Data')
 
 
 # Actions that we try to detect
-actions = np.array(['x'])
+actions = np.array(['길'])
 
 try:
     os.makedirs(f'{DATA_PATH}/{actions[0]}')
@@ -91,10 +91,7 @@ except:
 no_sequences = 30
 
 # Videos are going to be 30 frames in length
-sequence_length = 30 
-
-# Folder start
-start_folder = 30
+sequence_length = 15 
 
 for action in actions: 
     # dirmax = np.max(np.array(os.listdir(os.path.join(DATA_PATH, action))).astype(int))
