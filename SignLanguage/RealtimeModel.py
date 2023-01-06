@@ -9,7 +9,7 @@ from scipy import stats
 mp_holistic = mp.solutions.holistic # Holistic model
 mp_drawing = mp.solutions.drawing_utils # Drawing utilities
 
-model = keras.models.load_model('action2.h5')
+model = keras.models.load_model('model.h5')
 
 def mediapipe_detection(image, model):
     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB) # COLOR CONVERSION BGR 2 RGB
@@ -53,7 +53,7 @@ def prob_viz(res, actions, input_frame, colors):
     return output_frame
 
 # Actions that we try to detect
-actions = np.array(['mouse', 'road', 'money', 'x'])
+actions = np.array(['mouse', 'road', 'money', 'x', 'fly', 'visa', 'representative'])
 
 
 plt.figure(figsize=(18,18))
@@ -81,13 +81,12 @@ with mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=
         # 2. Prediction logic
         keypoints = extract_keypoints(results)
         sequence.append(keypoints)
-        sequence = sequence[-30:]
+        sequence = sequence[-15:]
         
-        if len(sequence) == 30:
+        if len(sequence) == 15:
             res = model.predict(np.expand_dims(sequence, axis=0))[0]
             print(actions[np.argmax(res)])
             predictions.append(np.argmax(res))
-            
             
         #3. Viz logic
             if np.unique(predictions[-10:])[0]==np.argmax(res): 
@@ -102,8 +101,8 @@ with mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=
             if len(sentence) > 5: 
                 sentence = sentence[-5:]
 
-            # Viz probabilities
-            image = prob_viz(res, actions, image, colors)
+            # # Viz probabilities
+            # image = prob_viz(res, actions, image, colors)
             
         cv2.rectangle(image, (0,0), (640, 40), (245, 117, 16), -1)
         cv2.putText(image, ' '.join(sentence), (3,30), 
