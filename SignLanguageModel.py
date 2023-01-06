@@ -5,15 +5,14 @@ from matplotlib import pyplot as plt
 from tensorflow import keras
 from scipy import stats
 
-
 class SignLanguage():
     def __init__(self):
         self.mp_holistic = mp.solutions.holistic # Holistic model
         self.mp_drawing = mp.solutions.drawing_utils # Drawing utilities
-        self.model = keras.models.load_model('action2.h5')
+        self.model = keras.models.load_model('model.h5')
         
         # Actions that we try to detect
-        self.actions = np.array(['mouse', 'road', 'money', 'x'])
+        self.actions = np.array(['mouse', 'road', 'money', 'x', 'fly', 'visa', 'representative'])
         
     def mediapipe_detection(self, image, model):
         image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB) # COLOR CONVERSION BGR 2 RGB
