@@ -9,7 +9,7 @@ from scipy import stats
 mp_holistic = mp.solutions.holistic # Holistic model
 mp_drawing = mp.solutions.drawing_utils # Drawing utilities
 
-model = keras.models.load_model('model.h5')
+model = keras.models.load_model('SignLanguage/model.h5')
 
 def mediapipe_detection(image, model):
     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB) # COLOR CONVERSION BGR 2 RGB
