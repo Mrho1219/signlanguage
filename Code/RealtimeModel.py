@@ -1,3 +1,4 @@
+import csv
 import cv2
 import numpy as np
 import mediapipe as mp
@@ -9,7 +10,7 @@ from scipy import stats
 mp_holistic = mp.solutions.holistic # Holistic model
 mp_drawing = mp.solutions.drawing_utils # Drawing utilities
 
-model = keras.models.load_model('SignLanguage/model.h5')
+model = keras.models.load_model('Model/model.h5')
 
 def mediapipe_detection(image, model):
     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB) # COLOR CONVERSION BGR 2 RGB
@@ -52,8 +53,14 @@ def prob_viz(res, actions, input_frame, colors):
         
     return output_frame
 
-# Actions that we try to detect
-actions = np.array(['mouse', 'road', 'money', 'x', 'fly', 'visa', 'representative'])
+# Load CSV File
+sign = []
+with open('Data\\SignList.csv', 'r') as f:
+    reader = csv.reader(f)
+    for row in reader:
+        sign.append(row[1])
+        
+actions = np.array(sign)
 
 
 plt.figure(figsize=(18,18))
@@ -88,10 +95,9 @@ with mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=
             print(actions[np.argmax(res)])
             predictions.append(np.argmax(res))
             
-        #3. Viz logic
-            if np.unique(predictions[-10:])[0]==np.argmax(res): 
-                if res[np.argmax(res)] > threshold: 
-                    
+        # #3. Viz logic      
+            if predictions[-10:].count(predictions[-1]) >= 10:
+                if res[np.argmax(res)] > threshold:
                     if len(sentence) > 0: 
                         if actions[np.argmax(res)] != sentence[-1]:
                             sentence.append(actions[np.argmax(res)])
