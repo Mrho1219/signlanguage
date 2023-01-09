@@ -30,7 +30,7 @@ class Server():
                 msg = await websocket.recv()
                 img = cv2.imdecode(np.fromstring(base64.b64decode(msg.split(',')[1]), np.uint8), cv2.IMREAD_COLOR)
                 
-                # 좌우반전
+                # x flip
                 img = cv2.flip(img, 1)
             
                 # Make detections
@@ -39,24 +39,23 @@ class Server():
                 # Draw landmarks
                 self.sl.draw_styled_landmarks(image, results)
                 
-                # 2. Prediction logic
+                # Prediction logic
                 keypoints = self.sl.extract_keypoints(results)
                 self.sequence.append(keypoints)
                 self.sequence = self.sequence[-15:]
                 
                 if len(self.sequence) == 15:
-                    # 예측
+                    # predict
                     res = self.sl.model.predict(np.expand_dims(self.sequence, axis=0))[0]
                     
-                    # 예측값 출력
+                    # print predict
                     print(self.sl.actions[np.argmax(res)])
                     
                     self.predictions.append(np.argmax(res))
-                    
-                    #3. 단어 리스트에 추가
-                    if np.unique(self.predictions[-8:])[0]==np.argmax(res): 
-                        if res[np.argmax(res)] > self.threshold: 
-                            
+                                        
+                    #3. add to word list
+                    if self.predictions[-7:].count(self.predictions[-1]) >= 10:
+                        if res[np.argmax(res)] > self.threshold:
                             if len(self.sentence) > 0: 
                                 if self.sl.actions[np.argmax(res)] != self.sentence[-1]:
                                     self.sentence.append(self.sl.actions[np.argmax(res)])
@@ -64,14 +63,9 @@ class Server():
                                 self.sentence.append(self.sl.actions[np.argmax(res)])
                                 
                     
-                    # 5단어까지 출력
+                    # print total five words
                     if len(self.sentence) > 5: 
                         self.sentence = self.sentence[-5:]
-
-                    # 화면 += 정확도 창
-                    # image = self.sl.prob_viz(res, self.sl.actions, image, self.colors)
-                    
-                    
 
                 cv2.rectangle(image, (0,0), (640, 40), (245, 117, 16), -1)
                 cv2.putText(image, ' '.join(self.sentence), (3,30), 
