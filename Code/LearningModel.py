@@ -1,12 +1,21 @@
 import numpy as np
 import os
-
+import csv
+import keras
 from sklearn.model_selection import train_test_split
 from keras.utils import to_categorical
 
-DATA_PATH = os.path.join('MP_Data') 
 
-actions = np.array(['쥐','길','돈', 'x', '날다', '비자', '대표'])
+DATA_PATH = os.path.join('Data\\TrainData') 
+
+# Load CSV File
+sign = []
+with open('Data\\SignList.csv', 'r') as f:
+    reader = csv.reader(f)
+    for row in reader:
+        sign.append(row[0])
+        
+actions = np.array(sign)
 
 
 # Videos are going to be 30 frames in length
@@ -45,8 +54,11 @@ model.add(Dense(64, activation='relu'))
 model.add(Dense(32, activation='relu'))
 model.add(Dense(actions.shape[0], activation='softmax'))
 
-model.compile(optimizer='Adam', loss='categorical_crossentropy', metrics=['categorical_accuracy'])
+opt = keras.optimizers.Adam(learning_rate=1e-4)
+
+model.compile(optimizer=opt, loss='categorical_crossentropy', metrics=['categorical_accuracy'])
+
 
 model.fit(X_train, y_train, epochs=150, callbacks=[tb_callback])
 
-model.save('model3.h5')
+model.save('Model/model.h5')
