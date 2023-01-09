@@ -1,4 +1,5 @@
 import cv2
+import csv
 import numpy as np
 import mediapipe as mp
 from matplotlib import pyplot as plt
@@ -9,10 +10,16 @@ class SignLanguage():
     def __init__(self):
         self.mp_holistic = mp.solutions.holistic # Holistic model
         self.mp_drawing = mp.solutions.drawing_utils # Drawing utilities
-        self.model = keras.models.load_model('SignLanguage/model.h5')
+        self.model = keras.models.load_model('Model/model.h5')
         
-        # Actions that we try to detect
-        self.actions = np.array(['mouse', 'road', 'money', 'x', 'fly', 'visa', 'representative'])
+        # Load CSV File
+        sign = []
+        with open('Data\\SignList.csv', 'r') as f:
+            reader = csv.reader(f)
+            for row in reader:
+                sign.append(row[1])
+                
+        self.actions = np.array(sign)
         
     def mediapipe_detection(self, image, model):
         image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB) # COLOR CONVERSION BGR 2 RGB
