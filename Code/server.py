@@ -22,7 +22,7 @@ class Server():
         self.threshold = 0.8
         
     async def sendMessage(self, websocket, data):
-        if data != ' ':
+        if data != 'x':
             print("송신 : ", data)
             await websocket.send(data); # send received data    
         
