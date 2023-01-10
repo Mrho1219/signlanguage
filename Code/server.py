@@ -22,6 +22,11 @@ class Server():
         self.predictions = []
         self.threshold = 0.8
         
+    async def sendMessage(self, websocket):
+        data_rcv = await websocket.recv(); # receiving the data from client. 
+        print("발신 데이터 " + data_rcv); 
+        await websocket.send(data_rcv); # send received data    
+        
     async def accept(self, websocket, path): 
         print("client connected")
         
@@ -56,11 +61,14 @@ class Server():
                     #3. add to word list
                     if self.predictions[-7:].count(self.predictions[-1]) >= 10:
                         if res[np.argmax(res)] > self.threshold:
-                            if len(self.sentence) > 0: 
-                                if self.sl.actions[np.argmax(res)] != self.sentence[-1]:
-                                    self.sentence.append(self.sl.actions[np.argmax(res)])
-                            else:
-                                self.sentence.append(self.sl.actions[np.argmax(res)])
+                            # if len(self.sentence) > 0: 
+                            #     if self.sl.actions[np.argmax(res)] != self.sentence[-1]:
+                            #         self.sentence.append(self.sl.actions[np.argmax(res)])
+                            #         self.sendMessage(websocket)
+
+                            # else:
+                            self.sentence.append(self.sl.actions[np.argmax(res)])
+                            self.sendMessage(websocket)
                                 
                     
                     # print total five words
@@ -79,9 +87,7 @@ class Server():
                 cv2.imshow('OpenCV Feed', image)
             cv2.destroyAllWindows()
                 
-            # data_rcv = await websocket.recv(); # receiving the data from client. 
-            # print("발신 데이터 " + data_rcv); 
-            # await websocket.send("반사::" + data_rcv); # send received data
+            
 
 sv = Server()
 # websocket server creation
