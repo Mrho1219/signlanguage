@@ -54,11 +54,10 @@ model.add(Dense(64, activation='relu'))
 model.add(Dense(32, activation='relu'))
 model.add(Dense(actions.shape[0], activation='softmax'))
 
-opt = keras.optimizers.Adam(learning_rate=1e-4)
-
-model.compile(optimizer=opt, loss='categorical_crossentropy', metrics=['categorical_accuracy'])
+model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['categorical_accuracy'])
 
 
 model.fit(X_train, y_train, epochs=150, callbacks=[tb_callback])
 
 model.save('Model/model.h5')
+
