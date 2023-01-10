@@ -48,7 +48,7 @@
 </div>
 
 <div style="float: left; width: 24%;">
-  <h2 style="line-height: 600%">수화 해석이 나올 부분</h1>
+  <h2 id = 'output' style="line-height: 600%">수화 해석이 나올 부분</h1>
 </div>
 </div>
 
@@ -75,6 +75,7 @@
 	}
 	ws.onmessage = function(msg){
 		console.log(msg.data);
+    ChangeOutput(msg.data)
 	}
 
 	navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
@@ -82,6 +83,7 @@
   var video = document.getElementById("videoInput");
   video.width = w;
   video.height = h;
+
   function successCallback(stream){
   	video.srcObject = stream;
   	video.play();
@@ -108,17 +110,21 @@
   processImage();
 
   function stream(){
-    setInterval(sendImage, 30); // 딜레이관런
+    setInterval(sendImage, 150); // 딜레이관런
   }
 
   function sendImage(){
-    var rawData = canvas.toDataURL("image/jpeg", 0.5); //해상도
+    var rawData = canvas.toDataURL("image/jpeg", 0.1); //해상도
     ws.send(rawData);
   }
 
   function ChangeText()
         {
-            document.getElementById("start").innerHTML = "실행중입니다.";
+          document.getElementById("start").innerHTML = "실행중입니다.";
+        }
+  function ChangeOutput(output)
+        {
+          document.getElementById("output").innerHTML = "asd";
         }
   function changeBtnName()  {
   const btnElement = document.getElementById('btn');
