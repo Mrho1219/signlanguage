@@ -98,11 +98,11 @@ with mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=
         # #3. Viz logic      
             if predictions[-10:].count(predictions[-1]) >= 10:
                 if res[np.argmax(res)] > threshold:
-                    if len(sentence) > 0: 
-                        if actions[np.argmax(res)] != sentence[-1]:
-                            sentence.append(actions[np.argmax(res)])
-                    else:
-                        sentence.append(actions[np.argmax(res)])
+                    # if len(sentence) > 0: 
+                    #     if actions[np.argmax(res)] != sentence[-1]:
+                    #         sentence.append(actions[np.argmax(res)])
+                    # else:
+                    sentence.append(actions[np.argmax(res)])
 
             if len(sentence) > 5: 
                 sentence = sentence[-5:]
