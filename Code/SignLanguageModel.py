@@ -17,8 +17,7 @@ class SignLanguage():
             reader = csv.reader(f)
             for row in reader:
                 self.actions.append(row)
-        print(self.actions)
-                
+
         
     def mediapipe_detection(self, image, model):
         image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB) # COLOR CONVERSION BGR 2 RGB
