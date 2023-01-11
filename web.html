@@ -3,7 +3,7 @@
 <html>
 
 <head>
-	<title>수화 번역 프로그램</title>
+   <title>수화 번역 프로그램</title>
 </head>
 
 <link rel="stylesheet" href="style.css">
@@ -41,7 +41,7 @@
   <h1 style="line-height: 300%" >수화 번역 프로그램</h1>
   <div><p id = "start" style="line-height: 400%">시작버튼을 클릭하하여 실행시켜 주세요</p></div>
   </body>
-	<video  id="videoInput" style="display:none"></video>
+   <video  id="videoInput" style="display:none"></video>
   <canvas id="videoOutput"></canvas>
   <button id='btn' onclick='changeBtnName();ChangeText();stream()'> 시작 </button>
   <p style="line-height: 400%">시작 버튼을 누른 뒤 수화를 하면 옆에 텍스트로 단어가 나옵니다. </p>
@@ -59,90 +59,96 @@
 
 
 <script>
+    let changeimg = document.getElementById("changeImg");
+    let myImg = document.getElementById("myImg");
 
-
-   let changeimg = document.getElementById("changeImg");
-        let myImg = document.getElementById("myImg");
-
-        function changeImage(){
-            let index = changeimg.selectedIndex;
-            myImg.src = changeimg.options[index].value;
-        }
+    function changeImage()
+    {
+      let index = changeimg.selectedIndex;
+      myImg.src = changeimg.options[index].value;
+    }
         
-        changeImage();
-        changeimg.onchange = changeImage;
+    changeImage();
+    changeimg.onchange = changeImage;
         
-  var w = 480, h = 360;
-	var url = "ws://localhost:3000"
-	var ws = new WebSocket(url);
-	ws.onopen = function(){
-		console.log("Websocket is connected.");
-	}
-	ws.onmessage = function(msg){
-		console.log(msg.data);
-    ChangeOutput(msg.data)
-    logo_info(msg.data)
-	}
+    var w = 480, h = 360;
+    var url = "ws://localhost:3000"
+    var ws = new WebSocket(url);
 
-	navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-  var constraints = {audio: false, video: true};
-  var video = document.getElementById("videoInput");
-  video.width = w;
-  video.height = h;
+    ws.onopen = function()
+    {
+        console.log("Websocket is connected.");
+    }
+    
+    ws.onmessage = function(msg)
+    {
+        f = msg.data.split('#')
+        ChangeOutput(f[0])
+        logo_info(f[1])
+    }
 
-  function successCallback(stream){
-  	video.srcObject = stream;
-  	video.play();
-  }
+    navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+    var constraints = {audio: false, video: true};
+    var video = document.getElementById("videoInput");
+    video.width = w;
+    video.height = h;
+
+    function successCallback(stream)
+    {
+        video.srcObject = stream;
+        video.play();
+    }
   
-  function errorCallback(error){
-   	console.log(error);
-  }
+    function errorCallback(error)
+    {
+        console.log(error);
+    }
 
-  navigator.getUserMedia(constraints, successCallback, errorCallback);
-	var canvas = document.getElementById("videoOutput");
-  canvas.width = w;
-  canvas.height = h;
-  var ctx = canvas.getContext("2d");
-  function processImage(){
+    navigator.getUserMedia(constraints, successCallback, errorCallback);
+    var canvas = document.getElementById("videoOutput");
+    canvas.width = w;
+    canvas.height = h;
+    var ctx = canvas.getContext("2d");
+    function processImage()
+    {
         ctx.save();
         ctx.scale(-1, 1);
         ctx.translate(-480, 0);
         ctx.drawImage(video, 0, 0, w, h);
         ctx.restore();
         setTimeout(processImage, 1);
-  }
+    }
 
-  processImage();
+    processImage();
 
-  function stream(){
-    setInterval(sendImage, 150); // 딜레이관런
-  }
+    function stream()
+    {
+        setInterval(sendImage, 150); // 딜레이관런
+    }
 
-  function sendImage(){
-    var rawData = canvas.toDataURL("image/jpeg", 0.1); //해상도
-    ws.send(rawData);
-  }
+    function sendImage()
+    {
+        var rawData = canvas.toDataURL("image/jpeg", 0.1); //해상도
+        ws.send(rawData);
+    }
 
-  function ChangeText()
-        {
-          document.getElementById("start").innerHTML = "실행중입니다.";
-        }
-  function ChangeOutput(txt)
-        {
-          word = txt.substring(0, txt.indexOf('#'));
-          document.getElementById("output").innerHTML = word;
-        }
-  function changeBtnName()  
-        {
-          const btnElement = document.getElementById('btn');
-          btnElement.innerText = '실행중';
-        }
-  function logo_info(logo) 
-  {
-    ingword = logo.substring(0, logo.indexOf('#'));
-    document.getElementById('img').src = 'https://source.unsplash.com/featured/?'+ingword;
-  }
+    function ChangeText()
+    {
+        document.getElementById("start").innerHTML = "실행중입니다.";
+    }
+    function ChangeOutput(txt)
+    {
+        document.getElementById("output").innerHTML = txt;
+    }
+    function changeBtnName()  
+    {
+        const btnElement = document.getElementById('btn');
+        btnElement.innerText = '실행중';
+    }
+    function logo_info(txt) 
+    {
+        document.getElementById('img').src = 'https://source.unsplash.com/featured/?'+txt;
+    }
  
 </script>
 </html>
