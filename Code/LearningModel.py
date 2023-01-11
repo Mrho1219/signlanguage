@@ -1,7 +1,6 @@
 import numpy as np
 import os
 import csv
-import keras
 from sklearn.model_selection import train_test_split
 from keras.utils import to_categorical
 
