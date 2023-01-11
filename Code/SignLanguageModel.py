@@ -2,9 +2,7 @@ import cv2
 import csv
 import numpy as np
 import mediapipe as mp
-from matplotlib import pyplot as plt
 from tensorflow import keras
-from scipy import stats
 
 class SignLanguage():
     def __init__(self):
@@ -14,13 +12,13 @@ class SignLanguage():
         self.model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['categorical_accuracy'])
         
         # Load CSV File
-        sign = []
+        self.actions = []
         with open('Data\\SignList.csv', 'r') as f:
             reader = csv.reader(f)
             for row in reader:
-                sign.append(row[1])
+                self.actions.append(row)
+        print(self.actions)
                 
-        self.actions = np.array(sign)
         
     def mediapipe_detection(self, image, model):
         image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB) # COLOR CONVERSION BGR 2 RGB
@@ -52,13 +50,3 @@ class SignLanguage():
         lh = np.array([[res.x, res.y, res.z] for res in results.left_hand_landmarks.landmark]).flatten() if results.left_hand_landmarks else np.zeros(21*3)
         rh = np.array([[res.x, res.y, res.z] for res in results.right_hand_landmarks.landmark]).flatten() if results.right_hand_landmarks else np.zeros(21*3)
         return np.concatenate([pose, lh, rh])
-
-
-    def prob_viz(self, res, actions, input_frame, colors):
-        print(type(res))
-        output_frame = input_frame.copy()
-        for num, prob in enumerate(res):
-            cv2.rectangle(output_frame, (0,60+num*40), (int(prob*100), 90+num*40), colors[num], -1)
-            cv2.putText(output_frame, actions[num], (0, 85+num*40), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,255,255), 2, cv2.LINE_AA)
-            
-        return output_frame
