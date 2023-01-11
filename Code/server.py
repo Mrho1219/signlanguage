@@ -22,8 +22,9 @@ class Server():
         self.threshold = 0.8
         
     async def sendMessage(self, websocket, data):
-        print("송신 : ", data)
-        await websocket.send(data); # send received data    
+        if data != 'x':
+            print("송신 : ", data)
+            await websocket.send(data); # send received data    
         
     async def accept(self, websocket, path): 
         print("client connected")
