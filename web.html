@@ -21,12 +21,13 @@
     <body>
       <h1 style="line-height: 300%">학습되어있는 단어</h1>
     <select  name="" id="changeImg"style="width:300px;height:30px;">
-      <option value="img\생쥐.png">생쥐</option>
+      <option value="img\생쥐.png">쥐</option>
       <option value="img\길.png">길</option>
       <option value="img\돈.png">돈</option>
       <option value="img\날다.png">날다</option>
-      <option value="img\비자.png">비자</option>
       <option value="img\대표.png">대표</option>
+      <option value="img\사랑.png">사랑</option>
+      <option value="img\감사.png">감사</option>
   </select>
 </form>
 <img id="myImg" src="ing/signimg.png" alt="옵션 그림">
@@ -129,19 +130,19 @@
         }
   function ChangeOutput(txt)
         {
-          document.getElementById("output").innerHTML = txt;
+          word = txt.substring(0, txt.indexOf('#'));
+          document.getElementById("output").innerHTML = word;
         }
-  function changeBtnName()  {
-  const btnElement = document.getElementById('btn');
-  btnElement.innerText = '실행중';
-}
-  function logo_info(logo) {
-    document.getElementById('img').src = 'https://source.unsplash.com/featured/?'+logo;
-
-
-  // logo_info= 'https://source.unsplash.com/featured/?'+ 'output';
-  
-}
+  function changeBtnName()  
+        {
+          const btnElement = document.getElementById('btn');
+          btnElement.innerText = '실행중';
+        }
+  function logo_info(logo) 
+  {
+    ingword = logo.substring(0, logo.indexOf('#'));
+    document.getElementById('img').src = 'https://source.unsplash.com/featured/?'+ingword;
+  }
  
 </script>
 </html>
