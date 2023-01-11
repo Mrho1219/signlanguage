@@ -7,7 +7,7 @@ from SignLanguageModel import SignLanguage
 mp_holistic = mp.solutions.holistic # Holistic model
 mp_drawing = mp.solutions.drawing_utils # Drawing utilities
 
-Target = '날다'
+Target = '사랑'
 
 sl = SignLanguage()
 
