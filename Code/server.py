@@ -16,15 +16,19 @@ class Server():
     def __init__(self):
         plt.figure(figsize=(18,18))
         self.sl = SignLanguage()
+        self.Eng_actions = np.array([i[1] for i in self.sl.actions])
+        self.Kor_actions = np.array([i[0] for i in self.sl.actions])
         self.sequence = []
         self.sentence = []
         self.predictions = []
         self.threshold = 0.8
         
     async def sendMessage(self, websocket, data):
-        if data != 'x':
+        x = data.split('#')
+        
+        if x[0] != 'x':
             print("송신 : ", data)
-            await websocket.send(data); # send received data    
+            await websocket.send(data); # send received data
         
     async def accept(self, websocket, path): 
         print("client connected")
@@ -52,8 +56,8 @@ class Server():
                     # predict
                     res = self.sl.model.predict(np.expand_dims(self.sequence, axis=0))[0]
                     
-                    # print predict
-                    print(self.sl.actions[np.argmax(res)])
+                    # print predictEng_actions
+                    print(self.Eng_actions[np.argmax(res)])
                     
                     self.predictions.append(np.argmax(res))
                                         
@@ -61,13 +65,13 @@ class Server():
                     if self.predictions[-7:].count(self.predictions[-1]) >= 7:
                         if res[np.argmax(res)] > self.threshold:
                             if len(self.sentence) > 0: 
-                                if self.sl.actions[np.argmax(res)] != self.sentence[-1]:
-                                    self.sentence.append(self.sl.actions[np.argmax(res)])
-                                    await self.sendMessage(websocket, self.sentence[-1])
+                                if self.Eng_actions[np.argmax(res)] != self.sentence[-1]:
+                                    self.sentence.append(self.Eng_actions[np.argmax(res)])
+                                    await self.sendMessage(websocket, f"{self.Kor_actions[np.argmax(res)]}#{self.Eng_actions[np.argmax(res)]}")
 
                             else:
-                                self.sentence.append(self.sl.actions[np.argmax(res)])
-                                await self.sendMessage(websocket, self.sentence[-1])
+                                self.sentence.append(self.Eng_actions[np.argmax(res)])
+                                await self.sendMessage(websocket, f"{self.Kor_actions[np.argmax(res)]}#{self.Eng_actions[np.argmax(res)]}")
                                 
                     
                     # print total five words
