@@ -10,7 +10,8 @@ class SignLanguage():
     def __init__(self):
         self.mp_holistic = mp.solutions.holistic # Holistic model
         self.mp_drawing = mp.solutions.drawing_utils # Drawing utilities
-        self.model = keras.models.load_model('Model/model.h5')
+        self.model = keras.models.load_model('Model/model.h5', compile = False)
+        self.model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['categorical_accuracy'])
         
         # Load CSV File
         sign = []
