@@ -50,7 +50,7 @@
 <div style="float: left; width: 24%;">
   <h2 style="line-height: 700%">수화 해석이 나오는 부분</h2>
   <p id = 'output' style="line-height: 600%"></p>
-  <img src="https://source.unsplash.com/featured/?mouse,road,money,fly,visa,representative" width="380">
+  <img id="img" src="" width="380">
 </div>
 </div>
 
@@ -58,6 +58,8 @@
 
 
 <script>
+
+
    let changeimg = document.getElementById("changeImg");
         let myImg = document.getElementById("myImg");
 
@@ -78,6 +80,7 @@
 	ws.onmessage = function(msg){
 		console.log(msg.data);
     ChangeOutput(msg.data)
+    logo_info(msg.data)
 	}
 
 	navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
@@ -131,6 +134,13 @@
   function changeBtnName()  {
   const btnElement = document.getElementById('btn');
   btnElement.innerText = '실행중';
+}
+  function logo_info(logo) {
+    document.getElementById('img').src = 'https://source.unsplash.com/featured/?'+logo;
+
+
+  // logo_info= 'https://source.unsplash.com/featured/?'+ 'output';
+  
 }
  
 </script>
