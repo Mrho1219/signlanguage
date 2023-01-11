@@ -4,7 +4,6 @@ import numpy as np
 import mediapipe as mp
 from matplotlib import pyplot as plt
 from tensorflow import keras
-from scipy import stats
 
 
 mp_holistic = mp.solutions.holistic # Holistic model
