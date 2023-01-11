@@ -7,3 +7,15 @@ a {
   height : 200px;
   text-align : center;
 }
+button{
+  width: 80px;
+  height: 40px;
+  border-radius: 20px;
+  font-size: 17px;
+  background-color: #ffffff;
+}
+button:hover{
+  background-color: #bdabe6;
+  box-shadow: rgba(99, 99, 99, 0.4) 0px 2px 8px 0px;
+
+}
