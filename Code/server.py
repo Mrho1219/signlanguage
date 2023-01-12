@@ -2,6 +2,7 @@ import asyncio
 import websockets
 from matplotlib import pyplot as plt 
 from SignLanguageModel import SignLanguage
+from NaverDictionaryParsing import NaverDictionaryParsing
 import warnings
 import numpy as np
 import base64, cv2
@@ -16,6 +17,7 @@ class Server():
     def __init__(self):
         plt.figure(figsize=(18,18))
         self.sl = SignLanguage()
+        self.nd = NaverDictionaryParsing()
         self.Eng_actions = np.array([i[1] for i in self.sl.actions])
         self.Kor_actions = np.array([i[0] for i in self.sl.actions])
         self.sequence = []
@@ -33,6 +35,11 @@ class Server():
     async def accept(self, websocket, path): 
         print("client connected")
         
+        async def sendWordThumbnail():
+            self.sentence.append(self.Eng_actions[np.argmax(res)])
+            thumnail = self.nd.getThumnail()
+            await self.sendMessage(websocket, f"{self.Kor_actions[np.argmax(res)]}#{thumnail}")
+            
         with self.sl.mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=0.5) as holistic:
             while True:
                 msg = await websocket.recv()
@@ -66,12 +73,10 @@ class Server():
                         if res[np.argmax(res)] > self.threshold:
                             if len(self.sentence) > 0: 
                                 if self.Eng_actions[np.argmax(res)] != self.sentence[-1]:
-                                    self.sentence.append(self.Eng_actions[np.argmax(res)])
-                                    await self.sendMessage(websocket, f"{self.Kor_actions[np.argmax(res)]}#{self.Eng_actions[np.argmax(res)]}")
+                                    await sendWordThumbnail()
 
                             else:
-                                self.sentence.append(self.Eng_actions[np.argmax(res)])
-                                await self.sendMessage(websocket, f"{self.Kor_actions[np.argmax(res)]}#{self.Eng_actions[np.argmax(res)]}")
+                                await sendWordThumbnail()
                                 
                     
                     # print total five words
