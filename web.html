@@ -9,83 +9,70 @@
 <link rel="stylesheet" href="style.css">
 
 <div class='center' style="float: left; width: 20%;">
-  <!-- 첫번째 영역 -->
   <img  src="Img\signimg.png" style=" display:block;">
-
-    <h1 style="line-height: 300%">수어 알아보기</h1>
-    <a style="line-height: 280%" href="https://sldict.korean.go.kr/front/main/main.do"  target="_blank" text-decoration-line: none;>국립국어원 한국수어사전 바로가기</a><br>
-    <a style="line-height: 280%" href="https://sldict.korean.go.kr/front/sign/signList.do?top_category=CTE" target="_blank" text-decoration-line: none;>일상생활 수어 알아보기</a><br>
-    <a style="line-height: 280%" href="https://sldict.korean.go.kr/front/sign/signList.do?top_category=CTE" target="_blank"  text-decoration-line: none;>전문용어 수어 알아보기</a><br>
-    <a style="line-height: 280%" href="https://sldict.korean.go.kr/front/museum/museumList.do?top_category=MUE"  target="_blank" text-decoration-line: none;>문화정보 수어 알아보기</a><br>
-  
     <body>
+      <h1 style="line-height: 300%">수어 알아보기</h1>
+      <a style="line-height: 280%" href="https://sldict.korean.go.kr/front/main/main.do"  target="_blank" text-decoration-line: none;>국립국어원 한국수어사전 바로가기</a><br>
+      <a style="line-height: 280%" href="https://sldict.korean.go.kr/front/sign/signList.do?top_category=CTE" target="_blank" text-decoration-line: none;>일상생활 수어 알아보기</a><br>
+      <a style="line-height: 280%" href="https://sldict.korean.go.kr/front/sign/signList.do?top_category=CTE" target="_blank"  text-decoration-line: none;>전문용어 수어 알아보기</a><br>
+      <a style="line-height: 280%" href="https://sldict.korean.go.kr/front/museum/museumList.do?top_category=MUE"  target="_blank" text-decoration-line: none;>문화정보 수어 알아보기</a><br>
+  
       <h1 style="line-height: 300%">학습되어있는 단어</h1>
-    <select  name="" id="changeImg"style="width:300px;height:30px;">
-      <option value="img\생쥐.png">쥐</option>
-      <option value="img\길.png">길</option>
-      <option value="img\돈.png">돈</option>
-      <option value="img\날다.png">날다</option>
-      <option value="img\대표.png">대표</option>
-      <option value="img\사랑.png">사랑</option>
-      <option value="img\감사.png">감사</option>
-  </select>
-</form>
-<img id="myImg" src="ing/signimg.png" alt="옵션 그림">
+      <select  name="" id="changeImg"style="width:300px;height:30px;">
+        <option value="img\생쥐.png">쥐</option>
+        <option value="img\길.png">길</option>
+        <option value="img\돈.png">돈</option>
+        <option value="img\날다.png">날다</option>
+        <option value="img\대표.png">대표</option>
+        <option value="img\사랑.png">사랑</option>
+        <option value="img\감사.png">감사</option>
+      </select>
+      <img id="myImg" src="" >
     </body>
 </div>
 
-<div  class='center' style="float: left; width: 79%;">
-  <!-- 두번째 영역 -->
-<div style="float: left; width: 75%;">
-<body>
-  <h1 style="line-height: 300%" >수화 번역 프로그램</h1>
-  <div><p id = "start" style="line-height: 400%">시작버튼을 클릭하하여 실행시켜 주세요</p></div>
-  </body>
-   <video  id="videoInput" style="display:none"></video>
-  <canvas id="videoOutput"></canvas>
-  <button id='btn' onclick='changeBtnName();ChangeText();stream()'> 시작 </button>
-  <p style="line-height: 400%">시작 버튼을 누른 뒤 수화를 하면 옆에 텍스트로 단어가 나옵니다. </p>
-</body>
+<div  style="float: left; width: 79%;">
+  <div class='center' style="float: left; width: 70%;">
+    <body>
+      <h1 style="line-height: 300%" >수화 번역 프로그램</h1>
+      <div><p id = "start" style="line-height: 400%">시작버튼을 클릭하하여 실행시켜 주세요</p></div>
+      <video  id="videoInput" style="display:none"></video>
+      <canvas id="videoOutput"></canvas><br>
+      <button id='btn' onclick='changeBtnName();ChangeText();stream()'> 시작 </button>
+      <p style="line-height: 400%">시작 버튼을 누른 뒤 수화를 하면 밑에 텍스트로 단어가 나오고 옆에 관련 사진이 나옵니다. </p>
+      
+    </body>
+  </div>
+  <div class='center' style="float: left; width: 29%;">
+    <body>
+      <h2 class='margin'>수화 번역 단어</h2>
+      <h3 id = 'output'>단어</h3>
+      <h2 class='margin' >수화 번역 사진</h2>
+      <!-- <p id = 'output'></p> -->
+      <img id="img" src="Img\signimg.png" width="380">
+    </body>
+  </div>
 </div>
 
-<div style="float: left; width: 24%;">
-  <h2 style="line-height: 700%">수화 해석이 나오는 부분</h2>
-  <p id = 'output' style="line-height: 600%"></p>
-  <img id="img" src="" width="380">
-</div>
-</div>
 
 
 
-
-<script>
-    let changeimg = document.getElementById("changeImg");
-    let myImg = document.getElementById("myImg");
-
-    function changeImage()
-    {
-      let index = changeimg.selectedIndex;
-      myImg.src = changeimg.options[index].value;
-    }
-        
-    changeImage();
-    changeimg.onchange = changeImage;
-        
+  <script>
     var w = 480, h = 360;
     var url = "ws://localhost:3000"
     var ws = new WebSocket(url);
 
     ws.onopen = function()
-    {
+      {
         console.log("Websocket is connected.");
-    }
+      }
     
     ws.onmessage = function(msg)
-    {
+     {
         f = msg.data.split('#')
         ChangeOutput(f[0])
         logo_info(f[1])
-    }
+      }
 
     navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
     var constraints = {audio: false, video: true};
@@ -94,15 +81,15 @@
     video.height = h;
 
     function successCallback(stream)
-    {
+      {
         video.srcObject = stream;
         video.play();
-    }
+      }
   
     function errorCallback(error)
-    {
+      {
         console.log(error);
-    }
+      }
 
     navigator.getUserMedia(constraints, successCallback, errorCallback);
     var canvas = document.getElementById("videoOutput");
@@ -110,45 +97,56 @@
     canvas.height = h;
     var ctx = canvas.getContext("2d");
     function processImage()
-    {
+      {
         ctx.save();
         ctx.scale(-1, 1);
         ctx.translate(-480, 0);
         ctx.drawImage(video, 0, 0, w, h);
         ctx.restore();
         setTimeout(processImage, 1);
-    }
+       }
 
     processImage();
 
     function stream()
-    {
+      {
         setInterval(sendImage, 150); // 딜레이관런
-    }
+      }
 
     function sendImage()
-    {
+      {
         var rawData = canvas.toDataURL("image/jpeg", 0.1); //해상도
         ws.send(rawData);
-    }
+      }
+
+    let changeimg = document.getElementById("changeImg");
+    let myImg = document.getElementById("myImg");
+    function changeImage()
+      {
+      let index = changeimg.selectedIndex;
+      myImg.src = changeimg.options[index].value;
+      }    
+    changeImage();
+    changeimg.onchange = changeImage;
 
     function ChangeText()
-    {
-        document.getElementById("start").innerHTML = "실행중입니다.";
-    }
-    function ChangeOutput(txt)
-    {
-        document.getElementById("output").innerHTML = txt;
-    }
+      {
+        document.getElementById("start").innerHTML = "실행중입니다. 화면 중앙에서 카메라를 봐주세요";
+      }
     function changeBtnName()  
-    {
+      {
         const btnElement = document.getElementById('btn');
         btnElement.innerText = '실행중';
-    }
+      }
+    function ChangeOutput(txt)
+      {
+        document.getElementById("output").innerHTML = txt;
+      }
+  
     function logo_info(txt) 
-    {
+      {
         document.getElementById('img').src = 'https://source.unsplash.com/featured/?'+txt;
-    }
+      }
  
-</script>
+  </script>
 </html>
