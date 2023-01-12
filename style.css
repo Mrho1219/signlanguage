@@ -4,7 +4,7 @@ a {
   color: inherit; /* 링크의 색상 제거 */
 }
 .center {
-  height : 200px;
+  height : 100px;
   text-align : center;
 }
 button{
@@ -12,10 +12,15 @@ button{
   height: 40px;
   border-radius: 20px;
   font-size: 17px;
-  background-color: #ffffff;
+  background-color: #ffffff; 
 }
 button:hover{
   background-color: #bdabe6;
   box-shadow: rgba(99, 99, 99, 0.4) 0px 2px 8px 0px;
 
+}
+.margin{
+  margin-top: 80px;
+  margin-bottom: 50px;
+  text-align : center;
 }
