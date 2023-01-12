@@ -3,10 +3,9 @@
   justify-content: space-between;
   align-items: center;
 }
-.link {
-  text-decoration: none; /* 링크의 밑줄 제거 */
+a{ text-decoration: none; /* 링크의 밑줄 제거 */
   color: inherit; /* 링크의 색상 제거 */
-  /* line-height: 300%; */
+
 }
 button{
   width: 80px;
@@ -25,11 +24,6 @@ button:hover{
   text-align : center;
   line-height: 400%;
 }
-.margin{
-  margin-top: 80px;
-  /* margin-bottom: 50px; */
-  /* text-align : center; */
-}
 
 .first{
   float: left; width: 20%;
@@ -42,7 +36,7 @@ button:hover{
 }
 .second_1{
   float: left; width: 70%;
-  line-height: 100px;
+  line-height: 80px;
 }
 .second_2{
   float: left; width: 29%;
