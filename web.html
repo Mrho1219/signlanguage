@@ -12,10 +12,10 @@
   <img  src="Img\signimg.png" style=" display:block;">
     <body>
       <h1>수어 알아보기</h1>
-      <a class='link' href="https://sldict.korean.go.kr/front/main/main.do"  target="_blank" text-decoration-line: none;>국립국어원 한국수어사전 바로가기</a><br>
-      <a class='link' href="https://sldict.korean.go.kr/front/sign/signList.do?top_category=CTE" target="_blank" text-decoration-line: none;>일상생활 수어 알아보기</a><br>
-      <a class='link' href="https://sldict.korean.go.kr/front/sign/signList.do?top_category=CTE" target="_blank"  text-decoration-line: none;>전문용어 수어 알아보기</a><br>
-      <a class='link'  href="https://sldict.korean.go.kr/front/museum/museumList.do?top_category=MUE"  target="_blank" text-decoration-line: none;>문화정보 수어 알아보기</a><br>
+      <a href="https://sldict.korean.go.kr/front/main/main.do"  target="_blank" text-decoration-line: none;>국립국어원 한국수어사전 바로가기</a><br>
+      <a href="https://sldict.korean.go.kr/front/sign/signList.do?top_category=CTE" target="_blank" text-decoration-line: none;>일상생활 수어 알아보기</a><br>
+      <a href="https://sldict.korean.go.kr/front/sign/signList.do?top_category=CTE" target="_blank"  text-decoration-line: none;>전문용어 수어 알아보기</a><br>
+      <a href="https://sldict.korean.go.kr/front/museum/museumList.do?top_category=MUE"  target="_blank" text-decoration-line: none;>문화정보 수어 알아보기</a><br>
   
       <h1>학습되어있는 단어</h1>
       <select  name="" id="changeImg"style="width:300px;height:30px;">
@@ -39,17 +39,18 @@
       <video  id="videoInput" style="display:none"></video>
       <canvas id="videoOutput"></canvas><br>
       <button id='btn' onclick='changeBtnName();ChangeText();stream()'> 시작 </button>
-      <p>시작 버튼을 누른 뒤 수화를 하면 밑에 텍스트로 단어가 나오고 옆에 관련 사진이 나옵니다. </p>
-      
+      <p>시작 버튼을 누른 뒤 수화를 하면 밑에 텍스트로 단어가 나오고 옆에 관련 사진이 나옵니다.</p>
     </body>
   </div>
+
   <div class='second_2'>
     <body>
       <h2>수화 번역 단어</h2>
       <h3 id = 'output'>단어</h3>
       <h2>수화 번역 사진</h2>
-      <!-- <p id = 'output'></p> -->
       <img id="img" src="Img\signimg.png" width="380">
+      <img src="Img\good.png" width="380">
+      <p>개발자가 얼굴 걸고 하는 프로그램 아주그냥 굳이에요</p>
     </body>
   </div>
 </div>
