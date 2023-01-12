@@ -17,6 +17,8 @@ class SignLanguage():
             reader = csv.reader(f)
             for row in reader:
                 self.actions.append(row)
+                
+        print(self.actions)
 
         
     def mediapipe_detection(self, image, model):
