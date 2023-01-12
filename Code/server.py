@@ -37,7 +37,7 @@ class Server():
         
         async def sendWordThumbnail():
             self.sentence.append(self.Eng_actions[np.argmax(res)])
-            thumnail = self.nd.getThumnail()
+            thumnail = self.nd.getThumnail(self.Kor_actions[np.argmax(res)])
             await self.sendMessage(websocket, f"{self.Kor_actions[np.argmax(res)]}#{thumnail}")
             
         with self.sl.mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=0.5) as holistic:
