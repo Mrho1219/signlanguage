@@ -8,7 +8,7 @@
 
 <link rel="stylesheet" href="style.css">
 
-<div class='center' style="float: left; width: 20%;">
+<div class='first'>
   <img  src="Img\signimg.png" style=" display:block;">
     <body>
       <h1>수어 알아보기</h1>
@@ -31,8 +31,8 @@
     </body>
 </div>
 
-<div  style="float: left; width: 79%;">
-  <div class='center' style="float: left; width: 70%;">
+<div class="second">
+  <div class='second_1'>
     <body>
       <h1>수화 번역 프로그램</h1>
       <div><p id = "start">시작버튼을 클릭하하여 실행시켜 주세요</p></div>
@@ -43,11 +43,11 @@
       
     </body>
   </div>
-  <div class='center' style="float: left; width: 29%;">
+  <div class='second_2'>
     <body>
-      <h2 class='margin'>수화 번역 단어</h2>
+      <h2>수화 번역 단어</h2>
       <h3 id = 'output'>단어</h3>
-      <h2 class='margin' >수화 번역 사진</h2>
+      <h2>수화 번역 사진</h2>
       <!-- <p id = 'output'></p> -->
       <img id="img" src="Img\signimg.png" width="380">
     </body>
@@ -145,7 +145,7 @@
   
     function logo_info(txt) 
       {
-        document.getElementById('img').src = 'https://source.unsplash.com/featured/?'+txt;
+        document.getElementById('img').src =txt;
       }
  
   </script>
