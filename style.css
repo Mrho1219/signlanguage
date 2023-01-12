@@ -16,7 +16,7 @@ button{
   background-color: #ffffff; 
 }
 button:hover{
-  background-color: #bdabe6;
+  background-color: #d4d4d4;
   box-shadow: rgba(99, 99, 99, 0.4) 0px 2px 8px 0px;
 
 }
@@ -27,6 +27,25 @@ button:hover{
 }
 .margin{
   margin-top: 80px;
-  margin-bottom: 50px;
+  /* margin-bottom: 50px; */
+  /* text-align : center; */
+}
+
+.first{
+  float: left; width: 20%;
   text-align : center;
+  line-height: 400%;
+}
+.second{
+  float: left; width: 79%;
+  text-align : center;
+}
+.second_1{
+  float: left; width: 70%;
+  line-height: 100px;
+}
+.second_2{
+  float: left; width: 29%;
+  margin-top: 80px;
+  line-height: 50px;
 }
