@@ -18,8 +18,9 @@ class Server():
         plt.figure(figsize=(18,18))
         self.sl = SignLanguage()
         self.nd = NaverDictionaryParsing()
-        self.Eng_actions = np.array([i[1] for i in self.sl.actions])
         self.Kor_actions = np.array([i[0] for i in self.sl.actions])
+        self.Eng_actions = np.array([i[1] for i in self.sl.actions])
+        self.url = np.array([i[2] for i in self.sl.actions])
         self.sequence = []
         self.sentence = []
         self.predictions = []
@@ -32,12 +33,12 @@ class Server():
             print("송신 : ", data)
             await websocket.send(data); # send received data
         
-    async def accept(self, websocket, path): 
+    async def accept(self, websocket): 
         print("client connected")
         
         async def sendWordThumbnail():
             self.sentence.append(self.Eng_actions[np.argmax(res)])
-            thumnail = self.nd.getThumnail(self.Kor_actions[np.argmax(res)])
+            thumnail = self.nd.getThumnail(self.Kor_actions[np.argmax(res)], self.url[np.argmax(res)])
             await self.sendMessage(websocket, f"{self.Kor_actions[np.argmax(res)]}#{thumnail}")
             
         with self.sl.mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=0.5) as holistic:
