@@ -1,11 +1,12 @@
-a {
-  text-align: center;
+.maim{
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.link {
   text-decoration: none; /* 링크의 밑줄 제거 */
   color: inherit; /* 링크의 색상 제거 */
-}
-.center {
-  height : 100px;
-  text-align : center;
+  /* line-height: 300%; */
 }
 button{
   width: 80px;
@@ -18,6 +19,11 @@ button:hover{
   background-color: #bdabe6;
   box-shadow: rgba(99, 99, 99, 0.4) 0px 2px 8px 0px;
 
+}
+.center {
+  height : 100px;
+  text-align : center;
+  line-height: 400%;
 }
 .margin{
   margin-top: 80px;
