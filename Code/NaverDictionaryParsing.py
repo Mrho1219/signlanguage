@@ -48,7 +48,7 @@ class NaverDictionaryParsing():
                         
                     print(lines)
                                 
-                    with open('Data\\SignList.csv','w') as wf:
+                    with open('Data\\SignList.csv','w', newline="") as wf:
                         w = csv.writer(wf)
                         w.writerows(lines)
                         
